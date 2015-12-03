@@ -3,13 +3,11 @@ sudo: false
 addons:
   apt:
     packages:
-      - ptex-bin
-      - texlive-latex-base
-      - texlive-latex-extra
-      - texlive-lang-japanese
+      - texlive
 install:
   - "[ ! -d ~/bin ] && mkdir ~/bin || true"
   - "wget -q -O - https://github.com/yihui/crandalf/raw/master/inst/scripts/install-pandoc | bash"
+  - "tlmgr install ptex japanese-otf jfontmaps jsclasses --no-persistent-downloads"
 cache:
   directories:
   - $HOME/bin
