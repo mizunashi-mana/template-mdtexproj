@@ -1,0 +1,17 @@
+language: c
+sudo: false
+addons:
+  apt:
+    packages:
+      - ptex-bin
+      - texlive-latex-base
+      - texlive-latex-extra
+      - texlive-lang-japanese
+install:
+  - "[ ! -d ~/bin ] && mkdir ~/bin || true"
+  - "wget -q -O - https://github.com/yihui/crandalf/raw/master/inst/scripts/install-pandoc | bash"
+cache:
+  directories:
+  - $HOME/bin
+script:
+ - make
