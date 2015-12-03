@@ -40,7 +40,10 @@ $(TARGET): $(TARGET_RESOURCE)
 
 $(TARGET_RESOURCE): $(TARGETS_MDTEX) $(TARGETS_ATEX) $(TARGETS_BTEX) $(TARGETS_STY)
 	cat $(INDEX_SOURCE) >> $(TMP_DIR)/$(MAIN_PREFIX).tex
-	echo | $(LATEX) -output-directory=$(TMP_DIR) -halt-on-error $(TMP_DIR)/$(MAIN_PREFIX).tex
+	echo | $(LATEX) \
+      -output-directory=$(TMP_DIR) \
+      -halt-on-error \
+      $(TMP_DIR)/$(MAIN_PREFIX).tex
 
 $(TARGETS_MDTEX): $(TMP_DIR)/%.tex: $(ARTS_DIR)/%.md
 	@[ -d $(TMP_DIR) ] || $(MKDIR) $(TMP_DIR)
