@@ -1,0 +1,17 @@
+# exclude dirs
+/tmp/
+/out/
+
+# exclude exts
+*.aux
+*.log
+*.dvi
+*.pdf
+*.eps
+
+# for Editor
+*~
+*.swp
+
+# for MacOSX
+.DS_Store
