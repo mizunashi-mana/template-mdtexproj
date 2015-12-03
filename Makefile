@@ -60,6 +60,7 @@ $(TARGETS_STY): $(TMP_DIR)/%.sty: $(STY_DIR)/%.sty
 
 .PHONY: clean
 clean:
+	$(RM) $(TMP_DIR)
 
 .PHONY: remove
 remove: clean
