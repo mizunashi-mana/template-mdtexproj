@@ -7,7 +7,7 @@
 \usepackage{type1cm}                % フォントサイズの変更とか
 \usepackage{fancyhdr}               % ヘッダー
 \usepackage{fancyvrb}               % エスケープ環境
-\usepackage{fancybox}               % 文字の囲み
+%\usepackage{fancybox}               % 文字の囲み（fancyvrbのcommandcharsと競合・・・）
 \usepackage{ascmac}                 % 拡張環境
 \usepackage{url}                    % urlマクロ
 \usepackage{float}                  % 図の配置位置を操作
@@ -26,3 +26,5 @@
 \usepackage{verbatim}               % verbatim環境
 \usepackage{slashbox}               % tableセルでの斜線
 \usepackage{tikz}                   % for tikz library
+\usepackage[dvipdfmx]{hyperref}     % hyperlinks
+\usepackage[dvipdfm]{geometry}      % layout
