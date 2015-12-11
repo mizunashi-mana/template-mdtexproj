@@ -1,12 +1,12 @@
 PANDOC = pandoc
 LATEX = platex
-DVI_PDF = dvipdfmx
+DVI_PDF = dvipdfmx -d 5
 
 RM = rm -rf
 MKDIR = mkdir -p
 CP = cp -r
 
-MD_FMT = markdown_github
+MD_FMT = markdown
 
 ARTS_DIR = arts
 BASE_DIR = base
@@ -51,14 +51,17 @@ $(TARGET_RESOURCE): $(TARGETS_MDTEX) $(TARGETS_ATEX) $(TARGETS_BTEX) $(TARGETS_S
 
 $(TARGETS_MDTEX): $(TMP_DIR)/%.tex: $(ARTS_DIR)/%.md
 	@[ -d $(TMP_DIR) ] || $(MKDIR) $(TMP_DIR)
+	@-$(RM) $(@:%.tex=%.aux)
 	$(PANDOC) -f $(MD_FMT) -t latex $< -o $@
 
 $(TARGETS_ATEX): $(TMP_DIR)/%.tex: $(ARTS_DIR)/%.tex
 	@[ -d $(TMP_DIR) ] || $(MKDIR) $(TMP_DIR)
+	@-$(RM) $(@:%.tex=%.aux)
 	$(CP) $< $@
 
 $(TARGETS_BTEX): $(TMP_DIR)/%.tex: $(BASE_DIR)/%.tex
 	@[ -d $(TMP_DIR) ] || $(MKDIR) $(TMP_DIR)
+	@-$(RM) $(@:%.tex=%.aux)
 	$(CP) $< $@
 
 $(TARGETS_STY): $(TMP_DIR)/%.sty: $(STY_DIR)/%.sty
