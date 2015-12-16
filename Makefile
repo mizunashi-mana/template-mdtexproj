@@ -31,6 +31,7 @@ TARGETS_MDTEX := $(MDSOURCES:$(ARTS_DIR)/%.md=$(TMP_DIR)/%.tex)
 TARGETS_ATEX := $(ATEXSOURCES:$(ARTS_DIR)/%.tex=$(TMP_DIR)/%.tex)
 TARGETS_BTEX := $(BTEXSOURCES:$(BASE_DIR)/%.tex=$(TMP_DIR)/%.tex)
 TARGETS_STY := $(STYSOURCES:$(STY_DIR)/%.sty=$(TMP_DIR)/%.sty)
+TARGET_TEXMAIN = $(TMP_DIR)/$(OUTPUT_PREFIX).tex
 
 .PHONY: all
 all: $(TARGET)
@@ -39,17 +40,18 @@ $(TARGET): $(TARGET_RESOURCE)
 	@[ -d $(OUT_DIR) ] || $(MKDIR) $(OUT_DIR)
 	$(DVI_PDF) -o $@ $<
 
-$(TARGET_RESOURCE): $(TARGETS_MDTEX) $(TARGETS_ATEX) $(TARGETS_BTEX) $(TARGETS_STY)
-	-$(RM) $(TMP_DIR)/$(OUTPUT_PREFIX).aux $(TMP_DIR)/$(OUTPUT_PREFIX).dvi
-	cat $(MAIN_SOURCE) $(INDEX_SOURCE) > $(TMP_DIR)/$(OUTPUT_PREFIX).tex
-	echo | $(LATEX) \
-      -output-directory=$(TMP_DIR) \
-      -halt-on-error \
-      $(TMP_DIR)/$(OUTPUT_PREFIX).tex \
+$(TARGET_RESOURCE): $(TARGET_TEXMAIN)
+	cd $(TMP_DIR) \
+	&& echo | $(LATEX) \
+		-halt-on-error \
+		$(realpath $(TMP_DIR)/../$<) \
 	&& $(LATEX) \
-      -output-directory=$(TMP_DIR) \
-      -halt-on-error \
-      $(TMP_DIR)/$(OUTPUT_PREFIX).tex > /dev/null
+		-halt-on-error \
+		$(realpath $(TMP_DIR)/../$<) > /dev/null
+
+$(TARGET_TEXMAIN): $(TARGETS_MDTEX) $(TARGETS_ATEX) $(TARGETS_BTEX) $(TARGETS_STY)
+	-$(RM) $(@:%.tex=%.aux)
+	cat $(MAIN_SOURCE) $(INDEX_SOURCE) > $@
 
 $(TARGETS_MDTEX): $(TMP_DIR)/%.tex: $(ARTS_DIR)/%.md
 	@[ -d $(TMP_DIR) ] || $(MKDIR) $(TMP_DIR)
