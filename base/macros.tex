@@ -23,15 +23,15 @@
 \renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
 \renewcommand{\thetable}{\arabic{section}.\arabic{table}}
 \renewcommand{\thefootnote}{\arabic{footnote}}
+\makeatletter
 \AtBeginDocument{
+    \@addtoreset{lstlisting}{section}
     \renewcommand{\lstlistingname}{リスト}
     \renewcommand{\thelstlisting}{\arabic{section}.\arabic{lstlisting}}
 }
-\makeatletter
 \@addtoreset{equation}{section}
 \@addtoreset{figure}{section}
 \@addtoreset{table}{section}
-\@addtoreset{lstlisting}{section}
 \makeatother
 
 % cite seen
