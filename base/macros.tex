@@ -23,21 +23,21 @@
 \renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
 \renewcommand{\thetable}{\arabic{section}.\arabic{table}}
 \renewcommand{\thefootnote}{\arabic{footnote}}
-\AtBeginDocument{
-    \renewcommand{\lstlistingname}{リスト}
-    \renewcommand{\thelstlisting}{\arabic{section}.\arabic{lstlisting}}
-}
 \makeatletter
+\AtBeginDocument{
+  \@addtoreset{lstlisting}{section}
+  \renewcommand{\lstlistingname}{リスト}
+  \renewcommand{\thelstlisting}{\arabic{section}.\arabic{lstlisting}}
+}
 \@addtoreset{equation}{section}
 \@addtoreset{figure}{section}
 \@addtoreset{table}{section}
-\@addtoreset{lstlisting}{section}
 \makeatother
 
 % cite seen
 \makeatletter
 \DeclareRobustCommand\cite{\unskip
-    \@ifnextchar[{\@tempswatrue\@citex}{\@tempswafalse\@citex[]}
+  \@ifnextchar[{\@tempswatrue\@citex}{\@tempswafalse\@citex[]}
 }
 \renewcommand{\@cite}[2]{$^{[\hbox{\scriptsize{#1\if@tempswa , #2\fi}]}}$}
 % \def\@biblabel#1{#1)}
@@ -48,25 +48,25 @@
 
 % lstlisting setting
 \lstset{
-    frame=trlb,
-    breaklines=true,
-    showstringspaces=\false, % スペースを可視化するか
-    keepspaces=true,
-    xleftmargin=3zw,
-    xrightmargin=0zw,
-    framerule=.2pt,
-    columns=[l]{fullflexible},
-    numbers=left,
-    stepnumber=1,
-    numberstyle={\rmfamily},
-    numbersep=1em,
-    lineskip=-3pt,
-    morecomment={[s][{\color[cmyk]{1,0,0,0}}]{/**}{*/}},
-    stringstyle={\ttfamily \color[rgb]{0.87,0.07,0.27} }, % 二重引用符内
-    commentstyle={\color[rgb]{0.2,0.6,0}\ttfamily\scriptsize}, % コメント
-    keywordstyle={\ttfamily \color[rgb]{0,0.5,0.5} }, % 言語のキーワード
-    keywordstyle={[2]\color[rgb]{0.2,0.2,0.73}}, % 言語によってあったりなかったりとのこと 色は適当
-    keywordstyle={[3]\color[rgb]{0.69,0,0.25}} % 言語によってあったりなかったりとのこと 色は適当
+  frame=trlb,
+  breaklines=true,
+  showstringspaces=\false, % スペースを可視化するか
+  keepspaces=true,
+  xleftmargin=3zw,
+  xrightmargin=0zw,
+  framerule=.2pt,
+  columns=[l]{fullflexible},
+  numbers=left,
+  stepnumber=1,
+  numberstyle={\rmfamily},
+  numbersep=1em,
+  lineskip=-3pt,
+  morecomment={[s][{\color[cmyk]{1,0,0,0}}]{/**}{*/}},
+  stringstyle={\ttfamily \color[rgb]{0.87,0.07,0.27} }, % 二重引用符内
+  commentstyle={\color[rgb]{0.2,0.6,0}\ttfamily\scriptsize}, % コメント
+  keywordstyle={\ttfamily \color[rgb]{0,0.5,0.5} }, % 言語のキーワード
+  keywordstyle={[2]\color[rgb]{0.2,0.2,0.73}}, % 言語によってあったりなかったりとのこと 色は適当
+  keywordstyle={[3]\color[rgb]{0.69,0,0.25}} % 言語によってあったりなかったりとのこと 色は適当
 }
 
 % my define
