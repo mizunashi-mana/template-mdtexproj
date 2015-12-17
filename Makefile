@@ -8,7 +8,7 @@ MKDIR = mkdir -p
 CP = cp -r
 
 MD_FMT = markdown
-CHARSET = utf-8
+CHARSET = utf8
 
 ARTS_DIR = arts
 BASE_DIR = base
@@ -47,18 +47,21 @@ all: $(TARGET)
 
 $(TARGET): $(TARGET_RESOURCE)
 	@[ -d $(OUT_DIR) ] || $(MKDIR) $(OUT_DIR)
-	$(DVI_PDF) -o $@ $<
+	cd $(TMP_DIR) \
+	&& $(DVI_PDF) \
+		-o $(realpath $@) \
+		$(realpath $<)
 
 $(TARGET_RESOURCE): $(TARGET_TEXMAIN) $(TARGET_DUMMYAS)
 	cd $(TMP_DIR) \
 	&& echo | $(LATEX) \
 		-halt-on-error \
 		-kanji=$(CHARSET) \
-		$(realpath $(TMP_DIR)/../$<) \
+		$(realpath $<) \
 	&& $(LATEX) \
 		-halt-on-error \
 		-kanji=$(CHARSET) \
-		$(realpath $(TMP_DIR)/../$<) > /dev/null
+		$(realpath $<) > /dev/null
 
 $(TARGET_TEXMAIN): $(TARGETS_MDTEX) $(TARGETS_ATEX) $(TARGETS_BTEX) $(TARGETS_STY)
 	-$(RM) $(@:%.tex=%.aux)
