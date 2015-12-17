@@ -47,7 +47,10 @@ all: $(TARGET)
 
 $(TARGET): $(TARGET_RESOURCE)
 	@[ -d $(OUT_DIR) ] || $(MKDIR) $(OUT_DIR)
-	$(DVI_PDF) -o $@ $<
+	cd $(TMP_DIR) \
+	&& $(DVI_PDF) \
+		-o $(realpath $@) \
+		$(realpath $<)
 
 $(TARGET_RESOURCE): $(TARGET_TEXMAIN) $(TARGET_DUMMYAS)
 	cd $(TMP_DIR) \
