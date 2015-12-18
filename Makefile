@@ -49,19 +49,19 @@ $(TARGET): $(TARGET_RESOURCE)
 	@[ -d $(OUT_DIR) ] || $(MKDIR) $(OUT_DIR)
 	cd $(TMP_DIR) \
 	&& $(DVI_PDF) \
-		-o $(realpath $@) \
-		$(realpath $<)
+		-o $(abspath $@) \
+		$(abspath $<)
 
 $(TARGET_RESOURCE): $(TARGET_TEXMAIN) $(TARGET_DUMMYAS)
 	cd $(TMP_DIR) \
 	&& echo | $(LATEX) \
 		-halt-on-error \
 		-kanji=$(CHARSET) \
-		$(realpath $<) \
+		$(abspath $<) \
 	&& $(LATEX) \
 		-halt-on-error \
 		-kanji=$(CHARSET) \
-		$(realpath $<) > /dev/null
+		$(abspath $<) > /dev/null
 
 $(TARGET_TEXMAIN): $(TARGETS_MDTEX) $(TARGETS_ATEX) $(TARGETS_BTEX) $(TARGETS_STY)
 	-$(RM) $(@:%.tex=%.aux)
